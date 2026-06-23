@@ -80,7 +80,7 @@ eventsphere/
 
 | Gopal Kumar Gond | Backend Developer | REST APIs, Express.js, MongoDB database, CRUD operations, user management, event management, authentication APIs. |
 
-| Satyam Yadav| AI & Documentation Lead | AI feature research, Gemini API integration, QR attendance workflow, documentation, pitch deck, reports, demo video and testing. |
+| Satyam Yadav | AI & Documentation Lead | AI feature research, Gemini API integration, QR attendance workflow, documentation, pitch deck, reports, demo video and testing. |
 
 ---
 
@@ -98,7 +98,6 @@ eventsphere/
 | QR Attendance | ⏳ Planned |
 | AI Features | ⏳ Planned |
 | Deployment | ⏳ Planned |
-
 ## 📜 License
 
 This project is created for educational purposes.
