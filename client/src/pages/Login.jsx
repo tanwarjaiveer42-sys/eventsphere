@@ -1,42 +1,50 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
+
+import AuthLayout from "../components/AuthLayout";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+    <AuthLayout>
+      <div className="w-full max-w-md">
+        <h2 className="text-4xl font-bold text-blue-700">
+          Welcome Back 👋
+        </h2>
 
-        <h1 className="text-3xl font-bold text-center text-blue-600">
-          Welcome Back
-        </h1>
-
-        <p className="text-center text-gray-500 mt-2">
-          Sign in to your EventSphere AI account
+        <p className="text-gray-500 mt-2 mb-8">
+          Login to continue to EventSphere AI
         </p>
 
-        <form className="mt-8 space-y-5">
+        <form className="space-y-6">
 
           {/* Email */}
+
           <div>
             <label className="block mb-2 font-medium">
-              Email
+              Email Address
             </label>
 
             <div className="relative">
-              <FaEnvelope className="absolute left-3 top-4 text-gray-400" />
+              <FaEnvelope className="absolute left-4 top-4 text-gray-400" />
 
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-full border rounded-lg pl-10 pr-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border rounded-xl pl-12 pr-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
 
           {/* Password */}
+
           <div>
 
             <label className="block mb-2 font-medium">
@@ -45,20 +53,24 @@ function Login() {
 
             <div className="relative">
 
-              <FaLock className="absolute left-3 top-4 text-gray-400" />
+              <FaLock className="absolute left-4 top-4 text-gray-400" />
 
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter password"
-                className="w-full border rounded-lg pl-10 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your password"
+                className="w-full border rounded-xl pl-12 pr-12 py-3 outline-none focus:ring-2 focus:ring-blue-500"
               />
 
               <button
                 type="button"
+                className="absolute right-4 top-4"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-4"
               >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ? (
+                  <FaEyeSlash />
+                ) : (
+                  <FaEye />
+                )}
               </button>
 
             </div>
@@ -74,7 +86,7 @@ function Login() {
             </label>
 
             <select
-              className="w-full border rounded-lg py-3 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border rounded-xl py-3 px-4 outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option>Student</option>
               <option>Organizer</option>
@@ -87,7 +99,7 @@ function Login() {
 
           <div className="flex justify-between items-center">
 
-            <label className="flex items-center gap-2">
+            <label className="flex gap-2 items-center text-sm">
 
               <input type="checkbox" />
 
@@ -97,28 +109,29 @@ function Login() {
 
             <button
               type="button"
-              className="text-blue-600 hover:underline"
+              className="text-blue-600 hover:underline text-sm"
             >
               Forgot Password?
             </button>
 
           </div>
 
-          {/* Button */}
+          {/* Login */}
 
           <button
-            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-3 font-semibold transition"
           >
-            Login
+            Sign In
           </button>
 
-          <p className="text-center">
+          <p className="text-center text-gray-600">
 
             Don't have an account?
 
             <Link
               to="/register"
-              className="text-blue-600 ml-2 font-semibold"
+              className="text-blue-600 font-semibold ml-2"
             >
               Register
             </Link>
@@ -126,9 +139,8 @@ function Login() {
           </p>
 
         </form>
-
       </div>
-    </div>
+    </AuthLayout>
   );
 }
 
