@@ -68,6 +68,10 @@ eventsphere/
 
 ---
 
-## 👨‍💻 Team
 
-Developed as part of a college startup project.
+## 👥 Team
+
+- Jaiveer Tanwar
+- Satyam Yadav
+- Gopal Kumar Gond
+- Surya Prakash Bharti
