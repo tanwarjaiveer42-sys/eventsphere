@@ -75,11 +75,8 @@ eventsphere/
 | Team Member | Role | Responsibilities |
 |------------|------|------------------|
 | Jaiveer Tanwar | Project Lead & Full Stack Developer | Project architecture, React frontend, Express backend, MongoDB integration, authentication, AI integration, GitHub management, deployment, testing and final integration. |
-
 | Surya Prakash Bharti | Frontend Developer | UI/UX design, landing page, responsive design, student dashboard, organizer dashboard, reusable React components, Tailwind CSS styling. |
-
 | Gopal Kumar Gond | Backend Developer | REST APIs, Express.js, MongoDB database, CRUD operations, user management, event management, authentication APIs. |
-
 | Satyam Yadav | AI & Documentation Lead | AI feature research, Gemini API integration, QR attendance workflow, documentation, pitch deck, reports, demo video and testing. |
 
 ---
