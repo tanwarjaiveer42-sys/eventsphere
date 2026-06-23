@@ -1,31 +1,27 @@
-# EventSphere
+# EventSphere AI 🎓
 
-**AI-Powered College Event Management Platform**
-
-## 📖 Overview
-
-EventSphere is a smart college event management platform that simplifies the complete event lifecycle. It allows students to discover and register for events, organizers to manage registrations and attendance, faculty to approve events, and administrators to monitor platform activities. AI-powered features enhance event creation and user experience.
+An AI-powered College Event Management Platform that simplifies event creation, registration, attendance tracking, and analytics through an intelligent, modern web application.
 
 ---
 
-## 🚀 Features (Planned)
+## 🚀 Features
 
-- User Authentication (Student, Organizer, Faculty, Admin)
-- Event Creation & Management
-- Event Registration
-- QR Code-Based Attendance
-- AI Event Description Generator
-- AI Chatbot Assistant
-- Certificate Generation
-- Analytics Dashboard
-- Notifications & Reminders
+- Student, Organizer, Faculty & Admin dashboards
+- AI-assisted event creation
+- Smart event registration
+- QR Code based attendance
+- Event analytics and reports
+- Digital certificates
+- Responsive modern UI
+- Secure authentication
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
 ### Frontend
-- React (Vite)
+- React.js
+- Vite
 - Tailwind CSS
 - React Router
 
@@ -34,10 +30,11 @@ EventSphere is a smart college event management platform that simplifies the com
 - Express.js
 
 ### Database
-- MongoDB Atlas
+- MongoDB (MongoDB Atlas)
 
-### AI
-- Google Gemini API
+### AI Integration
+- Google Gemini API (planned)
+- OpenAI API (optional)
 
 ### Deployment
 - Vercel (Frontend)
@@ -47,27 +44,22 @@ EventSphere is a smart college event management platform that simplifies the com
 
 ## 📂 Project Structure
 
-```text
+```
 eventsphere/
+│
 ├── client/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
 ├── server/
-├── README.md
-└── .gitignore
+│   ├── server.js
+│   └── package.json
+│
+└── README.md
 ```
 
 ---
-
-## 📅 Current Status
-
-- ✅ Project Ideation Completed
-- ✅ Product Requirement Document (PRD) Completed
-- ✅ GitHub Repository Initialized
-- ✅ React Frontend Setup
-- ✅ Express Backend Setup
-- 🚧 Authentication and Dashboard Development in Progress
-
----
-
 
 ## 👥 Team
 
@@ -75,3 +67,13 @@ eventsphere/
 - Satyam Yadav
 - Gopal Kumar Gond
 - Surya Prakash Bharti
+
+## 📅 Project Status
+
+🚧 Currently under development as part of the TechPreneur Industrial Training Program.
+
+---
+
+## 📜 License
+
+This project is created for educational purposes.
