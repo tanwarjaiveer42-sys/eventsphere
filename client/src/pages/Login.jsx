@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import API from "../services/api";
 import {
   FaEnvelope,
   FaLock,
@@ -11,6 +12,49 @@ import AuthLayout from "../components/AuthLayout";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const [role, setRole] = useState("Student");
+const [loading, setLoading] = useState(false);
+const handleLogin = async (e) => {
+  e.preventDefault();
+
+  alert("Step 1");
+
+  try {
+    alert("Step 2");
+
+    const res = await API.post("/auth/login", {
+      email,
+      password,
+    });
+
+    alert("Step 3");
+
+    console.log(res.data);
+
+   localStorage.setItem("token", res.data.token);
+localStorage.setItem("user", JSON.stringify(res.data.user));
+
+alert("Login Successful");
+
+if (res.data.user.role === "Student") {
+  navigate("/student-dashboard");
+} else if (res.data.user.role === "Organizer") {
+  navigate("/organizer-dashboard");
+} else if (res.data.user.role === "Faculty") {
+  navigate("/faculty-dashboard");
+} else if (res.data.user.role === "Admin") {
+  navigate("/admin-dashboard");
+}
+
+  } catch (err) {
+    console.log(err);
+    alert("Login Failed");
+  }
+};
 
   return (
     <AuthLayout>
@@ -23,7 +67,7 @@ function Login() {
           Login to continue to EventSphere AI
         </p>
 
-        <form className="space-y-6">
+        <form onSubmit={handleLogin} className="space-y-6">
 
           {/* Email */}
 
@@ -36,9 +80,11 @@ function Login() {
               <FaEnvelope className="absolute left-4 top-4 text-gray-400" />
 
               <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full border rounded-xl pl-12 pr-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+               type="email"
+               placeholder="Enter your email"
+               value={email}
+               onChange={(e) => setEmail(e.target.value)}
+               className="w-full border rounded-xl pl-12 pr-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
@@ -55,11 +101,13 @@ function Login() {
 
               <FaLock className="absolute left-4 top-4 text-gray-400" />
 
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
-                className="w-full border rounded-xl pl-12 pr-12 py-3 outline-none focus:ring-2 focus:ring-blue-500"
-              />
+             <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border rounded-xl pl-12 pr-12 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+            />
 
               <button
                 type="button"
@@ -86,8 +134,11 @@ function Login() {
             </label>
 
             <select
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
               className="w-full border rounded-xl py-3 px-4 outline-none focus:ring-2 focus:ring-blue-500"
             >
+            
               <option>Student</option>
               <option>Organizer</option>
               <option>Faculty</option>
@@ -119,10 +170,11 @@ function Login() {
           {/* Login */}
 
           <button
+  
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-3 font-semibold transition"
           >
-            Sign In
+            {loading ? "Signing In..." : "Sign In"}
           </button>
 
           <p className="text-center text-gray-600">

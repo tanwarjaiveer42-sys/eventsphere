@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import API from "../services/api";
 
-function CreateEvent() {
+function EditEvent() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
@@ -9,14 +13,33 @@ function CreateEvent() {
   const [category, setCategory] = useState("");
   const [maxParticipants, setMaxParticipants] = useState("");
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    fetchEvent();
+  }, []);
+
+  const fetchEvent = async () => {
+    try {
+      const res = await API.get(`/events/${id}`);
+
+      setTitle(res.data.title);
+      setDescription(res.data.description);
+      setDate(res.data.date);
+      setVenue(res.data.venue);
+      setCategory(res.data.category);
+      setMaxParticipants(res.data.maxParticipants);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUpdate = async (e) => {
     e.preventDefault();
 
     try {
       const token = localStorage.getItem("token");
 
-      const res = await API.post(
-        "/events/create",
+      await API.put(
+        `/events/update/${id}`,
         {
           title,
           description,
@@ -32,31 +55,35 @@ function CreateEvent() {
         }
       );
 
-      alert("Event Created Successfully!");
-      console.log(res.data);
+      alert("Event Updated Successfully");
+
+      navigate(`/events/${id}`);
     } catch (error) {
       console.log(error);
-      alert("Failed to create event");
+      alert("Update Failed");
     }
   };
 
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6">Create Event</h1>
+      <h1 className="text-3xl font-bold mb-6">
+        Edit Event
+      </h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleUpdate} className="space-y-4">
+
         <input
           type="text"
-          placeholder="Event Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          placeholder="Title"
         />
 
         <input
           type="text"
-          placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          placeholder="Description"
         />
 
         <input
@@ -67,31 +94,35 @@ function CreateEvent() {
 
         <input
           type="text"
-          placeholder="Venue"
           value={venue}
           onChange={(e) => setVenue(e.target.value)}
+          placeholder="Venue"
         />
 
         <input
           type="text"
-          placeholder="Category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
+          placeholder="Category"
         />
 
         <input
           type="number"
-          placeholder="Max Participants"
           value={maxParticipants}
           onChange={(e) => setMaxParticipants(e.target.value)}
+          placeholder="Max Participants"
         />
 
-        <button type="submit">
-          Create Event
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          Update Event
         </button>
+
       </form>
     </div>
   );
 }
 
-export default CreateEvent;
+export default EditEvent;
