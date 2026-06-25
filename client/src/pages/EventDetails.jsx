@@ -5,8 +5,9 @@ import API from "../services/api";
 function EventDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
   const [event, setEvent] = useState(null);
-
+  
   useEffect(() => {
     fetchEvent();
   }, []);
@@ -34,9 +35,9 @@ function EventDetails() {
 
     alert("Registered Successfully!");
   } catch (error) {
-    console.log(error);
-    alert("Registration Failed");
-  }
+  console.log(error);
+  alert("Registration Failed");
+}
 };
 const handleDelete = async () => {
   try {
@@ -49,11 +50,16 @@ const handleDelete = async () => {
     });
 
     alert("Event Deleted Successfully");
-
     navigate("/events");
+
   } catch (error) {
     console.log(error);
-    alert("Delete Failed");
+    console.log(error.response?.data);
+
+    alert(
+      error.response?.data?.message ||
+      "Delete Failed"
+    );
   }
 };
   if (!event) {
@@ -85,27 +91,40 @@ const handleDelete = async () => {
       <p className="mb-3">
         <strong>Max Participants:</strong> {event.maxParticipants}
       </p>
-      <button
-  onClick={handleRegister}
-  className="bg-blue-600 text-white px-4 py-2 rounded mr-3"
->
-  Register Event
-</button>
+     <div className="mt-6">
+
+  {user?.role === "Student" && (
+    <button
+      onClick={handleRegister}
+      className="bg-blue-600 text-white px-4 py-2 rounded"
+    >
+      Register Event
+    </button>
+  )}
+
+  {user?.role === "Organizer" && (
+    <>
       <Link to={`/edit-event/${id}`}>
-  <button
-    className="bg-green-600 text-white px-4 py-2 rounded mr-3"
-  >
-    Edit Event
-  </button>
-</Link>
+        <button
+          className="bg-green-600 text-white px-4 py-2 rounded mr-3"
+        >
+          Edit Event
+        </button>
+      </Link>
+
       <button
-  onClick={handleDelete}
-  className="bg-red-600 text-white px-4 py-2 rounded"
->
-  Delete Event
-</button>
-    </div>
+        onClick={handleDelete}
+        className="bg-red-600 text-white px-4 py-2 rounded"
+      >
+        Delete Event
+      </button>
+    </>
+  )}
+
+</div>
+  </div>
   );
 }
+
 
 export default EventDetails;

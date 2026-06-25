@@ -13,6 +13,7 @@ import CreateEvent from "./pages/CreateEvent";
 import Events from "./pages/Events";
 import EventDetails from "./pages/EventDetails";
 import EditEvent from "./pages/EditEvent";
+import MyEvents from "./pages/MyEvents";
 function App() {
   return (
     <BrowserRouter>
@@ -31,7 +32,7 @@ function App() {
               <StudentDashboard />
             </ProtectedRoute>
           }
-        />
+        /> <Route path="/my-events" element={<MyEvents />} />
          <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/organizer-dashboard" element={<OrganizerDashboard />} />

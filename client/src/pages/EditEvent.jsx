@@ -23,7 +23,7 @@ function EditEvent() {
 
       setTitle(res.data.title);
       setDescription(res.data.description);
-      setDate(res.data.date);
+      setDate(res.data.date.split("T")[0]);
       setVenue(res.data.venue);
       setCategory(res.data.category);
       setMaxParticipants(res.data.maxParticipants);
@@ -59,9 +59,14 @@ function EditEvent() {
 
       navigate(`/events/${id}`);
     } catch (error) {
-      console.log(error);
-      alert("Update Failed");
-    }
+  console.log(error);
+  console.log(error.response?.data);
+
+  alert(
+    error.response?.data?.message ||
+    "Update Failed"
+  );
+}
   };
 
   return (

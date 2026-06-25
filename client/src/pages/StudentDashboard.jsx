@@ -1,8 +1,11 @@
+import { Link } from "react-router-dom";
+
 function StudentDashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className="min-h-screen bg-gray-100">
+
       {/* Navbar */}
       <div className="bg-blue-600 text-white p-4 flex justify-between">
         <h1 className="text-2xl font-bold">EventSphere AI</h1>
@@ -29,23 +32,52 @@ function StudentDashboard() {
           Role: {user?.role}
         </p>
 
+        {/* Action Buttons */}
+        <div className="flex gap-4 mb-8">
+          <Link to="/events">
+            <button className="bg-blue-600 text-white px-4 py-2 rounded">
+              Browse Events
+            </button>
+          </Link>
+
+          <Link to="/my-events">
+            <button className="bg-green-600 text-white px-4 py-2 rounded">
+              My Registered Events
+            </button>
+          </Link>
+        </div>
+
+        {/* Cards */}
         <div className="grid md:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-xl shadow">
-            <h3 className="font-bold text-xl mb-2">My Events</h3>
-            <p>View all registered events.</p>
+            <h3 className="font-bold text-xl mb-2">
+              Browse Events
+            </h3>
+            <p>
+              View available events and register.
+            </p>
           </div>
 
           <div className="bg-white p-6 rounded-xl shadow">
-            <h3 className="font-bold text-xl mb-2">Certificates</h3>
-            <p>Download event certificates.</p>
+            <h3 className="font-bold text-xl mb-2">
+              My Events
+            </h3>
+            <p>
+              Check all your registered events.
+            </p>
           </div>
 
           <div className="bg-white p-6 rounded-xl shadow">
-            <h3 className="font-bold text-xl mb-2">Profile</h3>
-            <p>Manage your account settings.</p>
+            <h3 className="font-bold text-xl mb-2">
+              Profile
+            </h3>
+            <p>
+              Manage your account information.
+            </p>
           </div>
         </div>
       </div>
+
     </div>
   );
 }
