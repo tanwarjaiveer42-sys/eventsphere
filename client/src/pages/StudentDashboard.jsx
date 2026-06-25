@@ -1,85 +1,114 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function StudentDashboard() {
+  const navigate = useNavigate();
+
   const user = JSON.parse(localStorage.getItem("user"));
 
+  useEffect(() => {
+    if (!user || user.role !== "Student") {
+      navigate("/login");
+    }
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-100">
 
-      {/* Navbar */}
-      <div className="bg-blue-600 text-white p-4 flex justify-between">
-        <h1 className="text-2xl font-bold">EventSphere AI</h1>
+  <div className="min-h-screen bg-gray-100">
 
-        <button
-          onClick={() => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            window.location.href = "/login";
-          }}
-          className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold"
-        >
-          Logout
-        </button>
-      </div>
+```
+{/* Navbar */}
+<div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 flex justify-between items-center shadow-lg">
+  <h1 className="text-3xl font-bold">
+    EventSphere AI
+  </h1>
 
-      {/* Dashboard Content */}
-      <div className="p-8">
-        <h2 className="text-3xl font-bold mb-4">
-          Welcome, {user?.name} 👋
-        </h2>
+  <button
+    onClick={() => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    }}
+    className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:scale-105 transition"
+  >
+    Logout
+  </button>
+</div>
 
-        <p className="text-gray-600 mb-8">
-          Role: {user?.role}
-        </p>
+{/* Hero Section */}
+<div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-10">
+  <h2 className="text-4xl font-bold mb-2">
+    Welcome, {user?.name} 👋
+  </h2>
 
-        {/* Action Buttons */}
-        <div className="flex gap-4 mb-8">
-          <Link to="/events">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded">
-              Browse Events
-            </button>
-          </Link>
+  <p className="text-lg opacity-90">
+    Student Dashboard
+  </p>
+</div>
 
-          <Link to="/my-events">
-            <button className="bg-green-600 text-white px-4 py-2 rounded">
-              My Registered Events
-            </button>
-          </Link>
-        </div>
+<div className="p-8">
 
-        {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-xl shadow">
-            <h3 className="font-bold text-xl mb-2">
-              Browse Events
-            </h3>
-            <p>
-              View available events and register.
-            </p>
-          </div>
+  {/* Action Buttons */}
+  <div className="flex gap-4 mb-8 flex-wrap">
 
-          <div className="bg-white p-6 rounded-xl shadow">
-            <h3 className="font-bold text-xl mb-2">
-              My Events
-            </h3>
-            <p>
-              Check all your registered events.
-            </p>
-          </div>
+    <Link to="/events">
+      <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl shadow-lg transition">
+        Browse Events
+      </button>
+    </Link>
 
-          <div className="bg-white p-6 rounded-xl shadow">
-            <h3 className="font-bold text-xl mb-2">
-              Profile
-            </h3>
-            <p>
-              Manage your account information.
-            </p>
-          </div>
-        </div>
-      </div>
+    <Link to="/my-events">
+      <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl shadow-lg transition">
+        My Registered Events
+      </button>
+    </Link>
 
+  </div>
+
+  {/* Dashboard Cards */}
+  <div className="grid md:grid-cols-3 gap-6">
+
+    <Link to="/events">
+  <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition cursor-pointer">
+    <h3 className="font-bold text-2xl mb-3 text-blue-600">
+      📅 Browse Events
+    </h3>
+
+    <p className="text-gray-600">
+      Explore upcoming events and register instantly.
+    </p>
+  </div>
+</Link>
+   <Link to="/my-events">
+  <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition cursor-pointer">
+    <h3 className="font-bold text-2xl mb-3 text-green-600">
+      🎟 My Events
+    </h3>
+
+    <p className="text-gray-600">
+      View all events you have registered for.
+    </p>
+  </div>
+</Link>
+
+    <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition">
+      <h3 className="font-bold text-2xl mb-3 text-purple-600">
+        👤 Profile
+      </h3>
+
+      <p className="text-gray-600">
+        Manage your account and personal information.
+      </p>
     </div>
-  );
+
+  </div>
+</div>
+```
+
+  </div>
+);
+
+  
 }
 
 export default StudentDashboard;

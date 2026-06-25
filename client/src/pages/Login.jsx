@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
+
 import {
   FaEnvelope,
   FaLock,
@@ -13,46 +14,39 @@ import AuthLayout from "../components/AuthLayout";
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
+useEffect(() => {
+  document.title = "Login | EventSphere";
+}, []);
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
-const [role, setRole] = useState("Student");
 const [loading, setLoading] = useState(false);
 const handleLogin = async (e) => {
   e.preventDefault();
 
-  alert("Step 1");
-
   try {
-    alert("Step 2");
+    setLoading(true);
 
     const res = await API.post("/auth/login", {
       email,
       password,
     });
 
-    alert("Step 3");
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("user", JSON.stringify(res.data.user));
 
-    console.log(res.data);
+    
 
-   localStorage.setItem("token", res.data.token);
-localStorage.setItem("user", JSON.stringify(res.data.user));
-
-alert("Login Successful");
-
-if (res.data.user.role === "Student") {
-  navigate("/student-dashboard");
-} else if (res.data.user.role === "Organizer") {
-  navigate("/organizer-dashboard");
-} else if (res.data.user.role === "Faculty") {
-  navigate("/faculty-dashboard");
-} else if (res.data.user.role === "Admin") {
-  navigate("/admin-dashboard");
-}
+    if (res.data.user.role === "Student") {
+      navigate("/student-dashboard");
+    } else if (res.data.user.role === "Organizer") {
+      navigate("/organizer-dashboard");
+    }
 
   } catch (err) {
     console.log(err);
-    alert("Login Failed");
+    alert(err.response?.data?.message || "Invalid email or password");
+  } finally {
+    setLoading(false);
   }
 };
 
@@ -127,24 +121,7 @@ if (res.data.user.role === "Student") {
 
           {/* Role */}
 
-          <div>
-
-            <label className="block mb-2 font-medium">
-              Login As
-            </label>
-
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="w-full border rounded-xl py-3 px-4 outline-none focus:ring-2 focus:ring-blue-500"
-            >
-            
-              <option>Student</option>
-              <option>Organizer</option>
-              <option>Faculty</option>
-            </select>
-
-          </div>
+        
 
           {/* Remember */}
 

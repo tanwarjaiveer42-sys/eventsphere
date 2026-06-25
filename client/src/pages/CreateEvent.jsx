@@ -41,8 +41,10 @@ function CreateEvent() {
   };
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6">Create Event</h1>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <h1 className="text-4xl font-bold text-center text-green-600 mb-8">
+  Create New Event
+</h1><div className="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -50,6 +52,7 @@ function CreateEvent() {
           placeholder="Event Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-green-500 outline-none"
         />
 
         <input
@@ -57,12 +60,14 @@ function CreateEvent() {
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-green-500 outline-none"
         />
 
         <input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
+          className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-green-500 outline-none"
         />
 
         <input
@@ -70,6 +75,7 @@ function CreateEvent() {
           placeholder="Venue"
           value={venue}
           onChange={(e) => setVenue(e.target.value)}
+          className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-green-500 outline-none"
         />
 
         <input
@@ -77,6 +83,7 @@ function CreateEvent() {
           placeholder="Category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
+          className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-green-500 outline-none"
         />
 
         <input
@@ -84,12 +91,16 @@ function CreateEvent() {
           placeholder="Max Participants"
           value={maxParticipants}
           onChange={(e) => setMaxParticipants(e.target.value)}
+          className="w-full border rounded-xl p-3 focus:ring-2 focus:ring-green-500 outline-none"
         />
 
-        <button type="submit">
+        <button type="submit"
+        className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition">
           Create Event
+          
         </button>
       </form>
+      </div>
     </div>
   );
 }
