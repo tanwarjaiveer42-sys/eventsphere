@@ -101,6 +101,13 @@ const handleDelete = async () => {
       Register Event
     </button>
   )}
+  {user?.role === "Organizer" && (
+  <Link to={`/registrations/${id}`}>
+    <button className="bg-purple-600 text-white px-4 py-2 rounded">
+      View Registrations
+    </button>
+  </Link>
+)}
 
   {user?.role === "Organizer" && (
     <>
@@ -111,7 +118,7 @@ const handleDelete = async () => {
           Edit Event
         </button>
       </Link>
-
+      
       <button
         onClick={handleDelete}
         className="bg-red-600 text-white px-4 py-2 rounded"

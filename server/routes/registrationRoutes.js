@@ -3,10 +3,10 @@ const express = require("express");
 const router = express.Router();
 
 const protect = require("../middleware/authMiddleware");
-
 const {
   registerEvent,
   getMyEvents,
+  getEventRegistrations,
 } = require("../controllers/registrationController");
 
 router.post(
@@ -20,5 +20,12 @@ router.get(
   protect,
   getMyEvents
 );
-
+router.get(
+  "/event/:eventId",
+  protect,
+  getEventRegistrations
+);
+router.get("/test", (req, res) => {
+  res.send("Registration route working");
+});
 module.exports = router;

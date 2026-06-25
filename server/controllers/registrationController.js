@@ -1,5 +1,5 @@
 const Registration = require("../models/Registration");
-
+const Event = require("../models/Event");
 exports.registerEvent = async (req, res) => {
   try {
     const existing = await Registration.findOne({
@@ -35,6 +35,35 @@ exports.getMyEvents = async (req, res) => {
     }).populate("eventId");
 
     res.json(registrations);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+exports.getEventRegistrations = async (req, res) => {
+  try {
+
+    const event = await Event.findById(req.params.eventId);
+
+    if (!event) {
+      return res.status(404).json({
+        message: "Event not found",
+      });
+    }
+
+    if (event.createdBy.toString() !== req.user.id) {
+      return res.status(403).json({
+        message: "Access denied",
+      });
+    }
+
+    const registrations = await Registration.find({
+      eventId: req.params.eventId,
+    }).populate("userId", "name email role");
+
+    res.json(registrations);
+
   } catch (error) {
     res.status(500).json({
       message: error.message,

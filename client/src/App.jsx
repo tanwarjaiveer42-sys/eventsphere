@@ -14,6 +14,7 @@ import Events from "./pages/Events";
 import EventDetails from "./pages/EventDetails";
 import EditEvent from "./pages/EditEvent";
 import MyEvents from "./pages/MyEvents";
+import EventRegistrations from "./pages/EventRegistrations";
 function App() {
   return (
     <BrowserRouter>
@@ -26,12 +27,17 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/create-event" element={<CreateEvent />} />
         <Route
+  path="/registrations/:id"
+  element={<EventRegistrations />}
+/>
+        <Route
           path="/student-dashboard"
           element={
             <ProtectedRoute>
               <StudentDashboard />
             </ProtectedRoute>
           }
+          
         /> <Route path="/my-events" element={<MyEvents />} />
          <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />

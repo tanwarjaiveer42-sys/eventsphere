@@ -89,3 +89,17 @@ exports.deleteEvent = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+exports.getMyEvents = async (req, res) => {
+  try {
+    const events = await Event.find({
+      createdBy: req.user.id,
+    });
+
+    res.json(events);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+

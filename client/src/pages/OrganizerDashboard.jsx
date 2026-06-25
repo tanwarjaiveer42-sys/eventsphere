@@ -9,8 +9,16 @@ const [events, setEvents] = useState([]);
   useEffect(() => {
     const fetchEvents = async () => {
   try {
-    const res = await API.get("/events");
+    GET /api/events/my-events
+    const token = localStorage.getItem("token");
+
+const res = await API.get("/events/my-events", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
     setEvents(res.data);
+    
   } catch (err) {
     console.log(err);
   }
