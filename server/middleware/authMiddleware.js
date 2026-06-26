@@ -12,26 +12,27 @@ const protect = (req, res, next) => {
     try {
         token = token.split(" ")[1];
 
-        console.log("TOKEN RECEIVED:", token);
-        console.log("JWT_SECRET:", process.env.JWT_SECRET);
-
-        const decoded = jwt.verify(
-            token,
-            process.env.JWT_SECRET
-        );
-
-        console.log("DECODED:", decoded);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         req.user = decoded;
 
         next();
     } catch (error) {
-        console.log("JWT ERROR:", error.message);
-
         res.status(401).json({
             message: "Invalid token"
         });
     }
 };
 
-module.exports = protect;
+const authorizeRoles = (...roles) => {
+    return (req, res, next) => {
+        if (!req.user || !roles.includes(req.user.role)) {
+            return res.status(403).json({
+                message: `Access denied. Required role: ${roles.join(" or ")}`,
+            });
+        }
+        next();
+    };
+};
+
+module.exports = { protect, authorizeRoles };

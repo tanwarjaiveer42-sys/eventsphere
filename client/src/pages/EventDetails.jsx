@@ -17,7 +17,7 @@ function EventDetails() {
       const res = await API.get(`/events/${id}`);
       setEvent(res.data);
     } catch (error) {
-      console.log(error);
+      
     }
   };const handleRegister = async () => {
   try {
@@ -35,7 +35,7 @@ function EventDetails() {
 
     alert("Registered Successfully!");
   } catch (error) {
-  console.log(error);
+  
   alert("Registration Failed");
 }
 };
@@ -53,8 +53,7 @@ const handleDelete = async () => {
     navigate("/events");
 
   } catch (error) {
-    console.log(error);
-    console.log(error.response?.data);
+    
 
     alert(
       error.response?.data?.message ||
@@ -62,18 +61,26 @@ const handleDelete = async () => {
     );
   }
 };
-  if (!event) {
-    return <h2 className="p-8">Loading...</h2>;
-  }
-
+ <h2 className="text-center text-xl">
+  Loading Events...
+</h2>
+    if (!event) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <h2 className="text-2xl font-bold">
+        Loading Event...
+      </h2>
+    </div>
+  );
+}
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-4">
-        {event.title}
+        {event?.title}
       </h1>
 
       <p className="mb-3">
-        <strong>Description:</strong> {event.description}
+        <strong>Description:</strong> {event?.description}
       </p>
 
       <p className="mb-3">
@@ -81,11 +88,11 @@ const handleDelete = async () => {
       </p>
 
       <p className="mb-3">
-        <strong>Venue:</strong> {event.venue}
+        <strong>Venue:</strong> {event?.venue}
       </p>
 
       <p className="mb-3">
-        <strong>Category:</strong> {event.category}
+        <strong>Category:</strong> {event?.category}
       </p>
 
       <p className="mb-3">

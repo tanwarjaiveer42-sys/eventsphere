@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 
+
+
 function CreateEvent() {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
@@ -33,9 +37,9 @@ function CreateEvent() {
       );
 
       alert("Event Created Successfully!");
-      console.log(res.data);
+       navigate("/events");
     } catch (error) {
-      console.log(error);
+     
       alert("Failed to create event");
     }
   };

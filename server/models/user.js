@@ -21,10 +21,10 @@ const userSchema = new mongoose.Schema(
     },
 
     role: {
-      type: String,
-      enum: ["Student", "Organizer", "Faculty"],
-      default: "Student",
-    },
+  type: String,
+  enum: ["Student", "Organizer",  "Admin"],
+  default: "Student",
+},
   },
   {
     timestamps: true,

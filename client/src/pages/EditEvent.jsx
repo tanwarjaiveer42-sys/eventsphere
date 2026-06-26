@@ -28,7 +28,7 @@ function EditEvent() {
       setCategory(res.data.category);
       setMaxParticipants(res.data.maxParticipants);
     } catch (error) {
-      console.log(error);
+      
     }
   };
 
@@ -59,8 +59,7 @@ function EditEvent() {
 
       navigate(`/events/${id}`);
     } catch (error) {
-  console.log(error);
-  console.log(error.response?.data);
+ 
 
   alert(
     error.response?.data?.message ||

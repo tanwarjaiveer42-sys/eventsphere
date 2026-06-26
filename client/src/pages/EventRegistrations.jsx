@@ -24,10 +24,10 @@ const [error, setError] = useState("");
         }
       );
 
-      console.log("Registrations:", res.data);
+     
 setRegistrations(res.data);
     } catch (error) {
-  console.log(error);
+  
 
   if (error.response?.status === 403) {
     setError("You are not authorized to view registrations for this event.");
@@ -66,16 +66,16 @@ setRegistrations(res.data);
     className="bg-white p-6 rounded-2xl shadow-lg mb-4"
   >
     <h2 className="text-2xl font-bold text-blue-600">
-      {reg.userId.name}
-    </h2>
+  {reg.userID?.name}
+</h2>
 
-    <p className="text-gray-600">
-      {reg.userId.email}
-    </p>
+<p className="text-gray-600">
+  {reg.userID?.email}
+</p>
 
-    <p className="text-sm text-gray-500 mt-2">
-      Role: {reg.userId.role}
-    </p>
+<p className="text-sm text-gray-500 mt-2">
+  Role: {reg.userID?.role}
+</p>
     
   </div>
 ))}

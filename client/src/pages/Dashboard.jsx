@@ -9,7 +9,7 @@ const Dashboard = () => {
             const res = await API.get("/events");
             setEvents(res.data);
         } catch (err) {
-            console.log(err);
+           
         }
     };
 

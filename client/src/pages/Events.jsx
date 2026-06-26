@@ -14,7 +14,7 @@ function Events() {
       const res = await API.get("/events");
       setEvents(res.data);
     } catch (error) {
-      console.log(error);
+     
     }
   };
 

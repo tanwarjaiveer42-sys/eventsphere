@@ -29,21 +29,25 @@ const handleLogin = async (e) => {
     const res = await API.post("/auth/login", {
       email,
       password,
-    });
-
+    });console.log(res.data.user);
+    console.log("LOGIN RESPONSE:", res.data);
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("user", JSON.stringify(res.data.user));
 
     
 
-    if (res.data.user.role === "Student") {
-      navigate("/student-dashboard");
-    } else if (res.data.user.role === "Organizer") {
-      navigate("/organizer-dashboard");
-    }
+   if (res.data.user.role === "Student") {
+    navigate("/student-dashboard");
+}
+else if (res.data.user.role === "Organizer") {
+    navigate("/organizer-dashboard");
+}
+else if (res.data.user.role === "Admin") {
+    navigate("/admin-dashboard");
+}
 
   } catch (err) {
-    console.log(err);
+    
     alert(err.response?.data?.message || "Invalid email or password");
   } finally {
     setLoading(false);

@@ -1,22 +1,30 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
 
 function StudentDashboard() {
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    if (!user || user.role !== "Student") {
-      navigate("/login");
-    }
-  }, []);
+  const currentUser = JSON.parse(
+    localStorage.getItem("user")
+  );
+
+  if (!currentUser) {
+    navigate("/login");
+    return;
+  }
+
+  setUser(currentUser);
+}, [navigate]);
 
   return (
 
   <div className="min-h-screen bg-gray-100">
 
-```
+
 {/* Navbar */}
 <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 flex justify-between items-center shadow-lg">
   <h1 className="text-3xl font-bold">
@@ -89,21 +97,30 @@ function StudentDashboard() {
       View all events you have registered for.
     </p>
   </div>
+</Link><Link to="/ai-assistant">
+  <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+    🤖 AI Assistant
+  </button>
 </Link>
 
     <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition">
       <h3 className="font-bold text-2xl mb-3 text-purple-600">
         👤 Profile
-      </h3>
+      </h3><Link to="/student-analytics">
+    <button className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
+        📊 My Analytics
+    </button>
+</Link>
 
       <p className="text-gray-600">
         Manage your account and personal information.
       </p>
     </div>
+    
 
   </div>
 </div>
-```
+
 
   </div>
 );

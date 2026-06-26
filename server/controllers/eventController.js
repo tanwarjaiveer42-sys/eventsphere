@@ -2,7 +2,7 @@ const Event = require("../models/Event");
 
 // CREATE EVENT
 exports.createEvent = async (req, res) => {
-    console.log("REQ.USER =", req.user);
+    
 
     try {
         const event = await Event.create({
@@ -72,6 +72,7 @@ exports.updateEvent = async (req, res) => {
 };
 exports.deleteEvent = async (req, res) => {
     try {
+        const Registration = require("../models/Registration");
         const event = await Event.findById(req.params.id);
 
         if (!event) {
@@ -81,7 +82,9 @@ exports.deleteEvent = async (req, res) => {
         if (event.createdBy.toString() !== req.user.id) {
             return res.status(403).json({ message: "Not authorized" });
         }
-
+        await Registration.deleteMany({
+  eventId: req.params.id,
+                         });
         await Event.findByIdAndDelete(req.params.id);
 
         res.json({ message: "Event deleted successfully" });
@@ -91,12 +94,18 @@ exports.deleteEvent = async (req, res) => {
 };
 exports.getMyEvents = async (req, res) => {
   try {
+    console.log("USER ID:", req.user.id);
+
     const events = await Event.find({
       createdBy: req.user.id,
     });
 
+    console.log("EVENTS:", events);
+
     res.json(events);
   } catch (error) {
+    console.log("GET MY EVENTS ERROR:", error);
+
     res.status(500).json({
       message: error.message,
     });

@@ -1,31 +1,20 @@
-console.log("REGISTRATION ROUTES LOADED");
 const express = require("express");
 const router = express.Router();
+const { protect } = require("../middleware/authMiddleware");
 
-const protect = require("../middleware/authMiddleware");
 const {
-  registerEvent,
-  getMyEvents,
-  getEventRegistrations,
+    registerForEvent,
+    getMyRegistrations,
+    getEventRegistrations,
 } = require("../controllers/registrationController");
 
-router.post(
-  "/register/:eventId",
-  protect,
-  registerEvent
-);
+// Student registers for an event
+router.post("/register/:eventId", protect, registerForEvent);
 
-router.get(
-  "/my-events",
-  protect,
-  getMyEvents
-);
-router.get(
-  "/event/:eventId",
-  protect,
-  getEventRegistrations
-);
-router.get("/test", (req, res) => {
-  res.send("Registration route working");
-});
+// Student views their own registrations (with QR codes)
+router.get("/my", protect, getMyRegistrations);
+
+// Organizer views registrations for their event
+router.get("/event/:id", protect, getEventRegistrations);
+
 module.exports = router;

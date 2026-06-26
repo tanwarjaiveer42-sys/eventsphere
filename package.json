@@ -9,6 +9,10 @@
     "install:all": "npm install --prefix client && npm install --prefix server"
   },
   "dependencies": {
-    "react-router-dom": "^7.18.0"
+    "html5-qrcode": "^2.3.8",
+    "qrcode": "^1.5.4",
+    "qrcode.react": "^4.2.0",
+    "react-router-dom": "^7.18.0",
+    "uuid": "^14.0.1"
   }
 }
