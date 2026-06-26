@@ -1,7 +1,7 @@
 const PDFDocument = require("pdfkit");
 const Registration = require("../models/Registration");
 const Event = require("../models/Event");
-const User = require("../models/User");
+const User = require("../models/user");
 
 // GET /api/certificate/:registrationId
 const generateCertificate = async (req, res) => {

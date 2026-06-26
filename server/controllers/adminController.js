@@ -1,5 +1,5 @@
 // controllers/adminController.js
-const User = require("../models/User");
+const User = require("../models/user");
 const Event = require("../models/Event");
 const Registration = require("../models/Registration");
 
