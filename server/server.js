@@ -10,8 +10,8 @@ const registrationRoutes = require("./routes/registrationRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
 const adminRoutes = require("./routes/adminRoutes"); // ← ADD
 const analyticsRoutes = require("./routes/analyticsRoutes");
-
-
+const certificateRoutes = require("./routes/certificateRoutes");
+const aiRoutes = require("./routes/aiRoutes");
 const app = express();
 
 app.use(cors());
@@ -23,7 +23,8 @@ app.use("/api/registrations", registrationRoutes);
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/admin", adminRoutes); // ← ADD
 app.use("/api/analytics", analyticsRoutes);
-
+app.use("/api/certificate", certificateRoutes);
+app.use("/api/ai", aiRoutes);
 connectDB();
 
 app.get("/", (req, res) => {

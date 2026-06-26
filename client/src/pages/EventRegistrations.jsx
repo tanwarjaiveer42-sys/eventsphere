@@ -4,7 +4,7 @@ import API from "../services/api";
 
 function EventRegistrations() {
   const { id } = useParams();
-const [error, setError] = useState("");
+  const [error, setError] = useState("");
   const [registrations, setRegistrations] = useState([]);
 
   useEffect(() => {
@@ -24,61 +24,82 @@ const [error, setError] = useState("");
         }
       );
 
-     
-setRegistrations(res.data);
-    } catch (error) {
-  
 
-  if (error.response?.status === 403) {
-    setError("You are not authorized to view registrations for this event.");
-  }
+      setRegistrations(res.data);
+    } catch (error) {
+
+
+      if (error.response?.status === 403) {
+        setError("You are not authorized to view registrations for this event.");
+      }
 
     }
   };
-     if (error) {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-10 rounded-2xl shadow-lg text-center">
-        <h1 className="text-4xl font-bold text-red-600 mb-4">
-          Access Denied
-        </h1>
 
-        <p className="text-gray-600">
-          You are not authorized to view registrations for this event.
-        </p>
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-white to-indigo-50 px-4">
+        <div className="rounded-3xl bg-white/80 backdrop-blur-xl p-10 text-center shadow-xl shadow-violet-200/40 ring-1 ring-white/60 max-w-md">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-red-100 text-2xl">
+            🚫
+          </div>
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">
+            Access Denied
+          </h1>
+          <p className="text-slate-500">
+            {error}
+          </p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
+
   return (
-    <div className="p-8">
-      <h1 className="text-4xl font-bold text-center text-purple-600 mb-8">
-  👥 Event Registrations
-</h1>
-   {error && (
-  <div className="bg-red-100 text-red-700 p-4 rounded-xl mb-6 text-center font-semibold">
-    🚫 {error}
-  </div>
-)}
-      {registrations.map((reg) => (
-  <div
-    key={reg._id}
-    className="bg-white p-6 rounded-2xl shadow-lg mb-4"
-  >
-    <h2 className="text-2xl font-bold text-blue-600">
-  {reg.userID?.name}
-</h2>
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-indigo-50 px-4 py-10 sm:px-8">
+      <div className="mx-auto max-w-3xl">
 
-<p className="text-gray-600">
-  {reg.userID?.email}
-</p>
+        <div className="mb-8 text-center">
+          <span className="inline-flex items-center justify-center rounded-2xl bg-violet-100 h-12 w-12 text-2xl mb-3">
+            👥
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+            Event Registrations
+          </h1>
+          <p className="text-slate-500 mt-1">
+            {registrations.length} {registrations.length === 1 ? "person" : "people"} registered
+          </p>
+        </div>
 
-<p className="text-sm text-gray-500 mt-2">
-  Role: {reg.userID?.role}
-</p>
-    
-  </div>
-))}
+        {registrations.length === 0 ? (
+          <div className="rounded-3xl bg-white/70 backdrop-blur-xl p-12 text-center shadow-lg shadow-violet-200/30 ring-1 ring-white/60">
+            <p className="text-slate-400 font-medium">
+              No registrations yet.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {registrations.map((reg) => (
+              <div
+                key={reg._id}
+                className="group flex items-center justify-between gap-4 rounded-2xl bg-white/80 backdrop-blur-xl p-6 shadow-md shadow-violet-100/50 ring-1 ring-white/60 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-violet-200/50"
+              >
+                <div>
+                  <h2 className="text-lg font-bold text-slate-900">
+                    {reg.userID?.name}
+                  </h2>
+                  <p className="text-slate-500 text-sm mt-0.5">
+                    {reg.userID?.email}
+                  </p>
+                </div>
+
+                <span className="shrink-0 rounded-full bg-violet-100 px-3 py-1 text-xs font-semibold text-violet-700">
+                  {reg.userID?.role}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
