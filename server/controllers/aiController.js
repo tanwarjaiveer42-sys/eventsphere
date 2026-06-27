@@ -1,6 +1,6 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { GoogleGenAI } = require("@google/genai");
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 // System context injected into every request so Gemini knows the product
 const SYSTEM_CONTEXT = `You are EventSphere AI Assistant — a smart, helpful AI built into EventSphere, a college event management platform. 
@@ -20,15 +20,21 @@ Rules:
 - If asked something unrelated to events or college life, gently redirect
 - Format responses with markdown for better readability`;
 
+// Small helper to keep the generateContent call shape consistent everywhere
+const generate = async (prompt) => {
+    const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+    });
+
+    return response.text;
+};
+
 // POST /api/ai/chat  — General AI Chat
 const chat = async (req, res) => {
     try {
 
         const { message } = req.body;
-
-        const model = genAI.getGenerativeModel({
-  model: "gemini-2.5-flash",
-});
 
         const prompt = `
 ${SYSTEM_CONTEXT}
@@ -37,12 +43,10 @@ User Question:
 ${message}
 `;
 
-        const result = await model.generateContent(prompt);
-
-        const response = await result.response;
+        const text = await generate(prompt);
 
         res.json({
-            reply: response.text(),
+            reply: text,
         });
 
     } catch (error) {
@@ -65,8 +69,6 @@ const generateDescription = async (req, res) => {
             return res.status(400).json({ message: "Event title is required." });
         }
 
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
         const prompt = `${SYSTEM_CONTEXT}
 
 Generate a compelling, engaging event description for a college event with these details:
@@ -84,9 +86,7 @@ Write a 3-4 paragraph description that:
 
 Keep it energetic, student-friendly, and under 250 words.`;
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
+        const text = await generate(prompt);
 
         res.json({ description: text });
     } catch (error) {
@@ -107,8 +107,6 @@ const budgetSuggestions = async (req, res) => {
             return res.status(400).json({ message: "Event type is required." });
         }
 
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
         const prompt = `${SYSTEM_CONTEXT}
 
 Create a detailed budget breakdown for this college event:
@@ -124,9 +122,7 @@ Provide:
 
 Be realistic for a college budget. Format with clear sections and a summary table.`;
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
+        const text = await generate(prompt);
 
         res.json({ budget: text });
     } catch (error) {
@@ -147,8 +143,6 @@ const promotionIdeas = async (req, res) => {
             return res.status(400).json({ message: "Event title is required." });
         }
 
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
         const prompt = `${SYSTEM_CONTEXT}
 
 Generate a complete promotion strategy for this college event:
@@ -165,9 +159,7 @@ Provide:
 
 Make it practical, creative, and specifically tailored for a college audience.`;
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
+        const text = await generate(prompt);
 
         res.json({ ideas: text });
     } catch (error) {
@@ -188,8 +180,6 @@ const eventPlan = async (req, res) => {
             return res.status(400).json({ message: "Event type is required." });
         }
 
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
         const prompt = `${SYSTEM_CONTEXT}
 
 Create a comprehensive event plan for:
@@ -208,9 +198,7 @@ Include:
 
 Be detailed and actionable for a college organizing committee.`;
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
+        const text = await generate(prompt);
 
         res.json({ plan: text });
     } catch (error) {
