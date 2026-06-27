@@ -1,8 +1,10 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
+  baseURL: "https://eventsphere-ai-nlp8.onrender.com/api",
 });
+
+export default API;
 
 // Automatically attach token to every request
 API.interceptors.request.use((req) => {
