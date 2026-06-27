@@ -1,5 +1,5 @@
 // services/attendanceService.js
-import axios from "axios";
+import API from "./api";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
@@ -11,7 +11,7 @@ const getAuthHeader = () => ({
  * Organizer: scan a QR token
  */
 export const scanQRToken = async (qrToken) => {
-  const response = await axios.post(
+  const response = await API.post(
     `${API}/attendance/scan`,
     { qrToken },
     getAuthHeader()
@@ -23,7 +23,7 @@ export const scanQRToken = async (qrToken) => {
  * Organizer: get attendance list for an event
  */
 export const getEventAttendance = async (eventId) => {
-  const response = await axios.get(
+  const response = await API.get(
     `${API}/attendance/event/${eventId}`,
     getAuthHeader()
   );
@@ -34,6 +34,6 @@ export const getEventAttendance = async (eventId) => {
  * Student: get my registrations (reuse your existing service or add here)
  */
 export const getMyRegistrations = async () => {
-  const response = await axios.get(`${API}/registrations/my`, getAuthHeader());
+  const response = await API.get(`${API}/registrations/my`, getAuthHeader());
   return response.data;
 };
